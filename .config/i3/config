@@ -19,6 +19,10 @@ font pango:monospace 8
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
 
+# #---Basic Definitions---# #
+
+set $shutdown sudo -A shutdown -h now
+
 # start a terminal
 bindsym $mod+Return exec st
 bindsym $mod+r exec st -e ranger
@@ -41,10 +45,10 @@ bindsym $mod+q [con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 bindsym $mod+Shift+q [con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
 
 
-bindsym $mod+Shift+y resize shrink width 1 px or 1 ppt
-bindsym $mod+Shift+u resize grow height 1 px or 1 ppt
-bindsym $mod+Shift+i resize shrink height 1 px or 1 ppt
-bindsym $mod+Shift+o resize grow width 1 px or 1 ppt
+bindsym $mod+Shift+y resize shrink width 2 px or 2 ppt
+bindsym $mod+Shift+u resize grow height 2 px or 2 ppt
+bindsym $mod+Shift+i resize shrink height 2 px or 2 ppt
+bindsym $mod+Shift+o resize grow width 2 px or 2 ppt
 
 bindsym $mod+w exec firefox
 
@@ -59,6 +63,8 @@ bindsym $mod+Shift+k move up 30
 
 bindsym $mod+l focus right
 bindsym $mod+Shift+l move right 30
+
+bindsym $mod+Shift+x exec --no-startup-id prompt "Shutdown computer?" "$shutdown"
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -144,7 +150,7 @@ bar {
         status_command i3status
 }
 
-bindsym $mod+shift+x exec i3lock
+bindsym $mod+x exec i3lock
 
 for_window [class="^.*"] border pixel 2 
 gaps inner 15 
