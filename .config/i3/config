@@ -64,7 +64,8 @@ bindsym $mod+Shift+k move up 30
 bindsym $mod+l focus right
 bindsym $mod+Shift+l move right 30
 
-bindsym $mod+Shift+x exec --no-startup-id prompt "Shutdown computer?" "$shutdown"
+bindsym $mod+x exec i3lock
+bindsym $mod+Shift+x exec [ "$(printf "No\\nYes" | dmenu -i -p "Shutdown computer?" -nb darkred -sb red -sf white -nf gray )" = "Yes" ] && $2 
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -149,8 +150,6 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bar {
         status_command i3status
 }
-
-bindsym $mod+x exec i3lock
 
 for_window [class="^.*"] border pixel 2 
 gaps inner 15 
