@@ -4,6 +4,9 @@ shopt -s autocd #Allows you to cd into directory merely by typing the directory 
 alias v="vim"
 alias vs="vscodium"
 alias g="git"
+alias kp="keepassxc-cli clip ~/Documents/Passwords.kdbx"
+
+export PATH="$PATH:~/.scripts/i3cmds"
 
 # Adding color
 alias ls="ls -hN --color=auto --group-directories-first"
