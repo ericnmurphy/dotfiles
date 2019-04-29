@@ -86,6 +86,16 @@ min_width=CPU: 100.00%
 #[load_average]
 #interval=10
 
+[weather]
+command=curl -Ss 'https://wttr.in?format=%c+%t'
+interval=3600
+color=#A4C2F4
+
+[spotify]
+label=🎵
+command=~/.scripts/statusbar/spotify.py
+interval=5
+
 [volume]
 interval=once
 signal=10
