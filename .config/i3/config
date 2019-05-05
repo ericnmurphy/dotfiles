@@ -23,6 +23,10 @@ font pango:monospace 8
 
 set $shutdown sudo -A shutdown -h now
 
+# #---Starting External Scripts---# #
+# Setting the background:
+exec --no-startup-id setbg
+
 # start a terminal
 bindsym $mod+Return exec st
 bindsym $mod+r exec st -e ranger
@@ -170,6 +174,5 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-exec_always feh --bg-scale ~/Pictures/sam-cid-1072775-unsplash.jpg
 exec_always compton
 exec --no-startup-id redshift
