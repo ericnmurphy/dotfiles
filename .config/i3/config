@@ -68,7 +68,7 @@ bindsym $mod+Shift+k move up 30
 bindsym $mod+l focus right
 bindsym $mod+Shift+l move right 30
 
-bindsym $mod+x exec i3lock
+bindsym $mod+x exec --no-startup-id i3lock -e -f -c 1d2021 ; exec --no-startup-id sleep 1 && xset -display :0.0 dpms force off
 bindsym $mod+Shift+x exec [ "$(printf "No\\nYes" | dmenu -i -p "Shutdown computer?" -nb darkred -sb red -sf white -nf gray )" = "Yes" ] && shutdown -h now 
 
 # alternatively, you can use the cursor keys:
