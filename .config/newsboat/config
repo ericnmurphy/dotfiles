@@ -26,5 +26,5 @@ color info red black bold
 color article cyan default
 
 auto-reload yes
-browser "/usr/bin/firefox %u"
-macro v set browser "mpv %u"; open-in-browser ; set browser "firefox %u"
+browser "firefox %u"
+macro v set browser "i3 exec mpv"; open-in-browser ; set browser "firefox %u"
