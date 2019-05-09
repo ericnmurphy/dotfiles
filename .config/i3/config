@@ -25,7 +25,9 @@ set $shutdown sudo -A shutdown -h now
 
 # #---Starting External Scripts---# #
 # Setting the background:
-exec --no-startup-id setbg
+exec_always setbg
+# Start redshift:
+exec_always redshift -vr
 
 # start a terminal
 bindsym $mod+Return exec st
@@ -70,6 +72,7 @@ bindsym $mod+Shift+l move right 30
 
 bindsym $mod+x exec --no-startup-id i3lock -e -f -c 1d2021 ; exec --no-startup-id sleep 1 && xset -display :0.0 dpms force off
 bindsym $mod+Shift+x exec [ "$(printf "No\\nYes" | dmenu -i -p "Shutdown computer?" -nb darkred -sb red -sf white -nf gray )" = "Yes" ] && shutdown -h now 
+bindsym $mod+Shift+BackSpace exec [ "$(printf "No\\nYes" | dmenu -i -p "Reboot computer?" -nb darkred -sb red -sf white -nf gray )" = "Yes" ] && reboot 
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
