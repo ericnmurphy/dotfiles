@@ -27,7 +27,7 @@ set $shutdown sudo -A shutdown -h now
 # Setting the background:
 exec_always setbg
 # Start redshift:
-exec_always redshift -vr
+exec --no-startup-id redshift
 
 # start a terminal
 bindsym $mod+Return exec st
@@ -178,4 +178,3 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 exec_always compton
-exec --no-startup-id redshift
