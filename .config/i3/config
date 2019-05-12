@@ -25,7 +25,7 @@ set $shutdown sudo -A shutdown -h now
 
 # #---Starting External Scripts---# #
 # Setting the background:
-exec_always setbg
+exec setbg
 # Start redshift:
 exec --no-startup-id redshift
 
@@ -33,6 +33,7 @@ exec --no-startup-id redshift
 bindsym $mod+Return exec st
 bindsym $mod+r exec st -e ranger
 bindsym $mod+c exec st -e calcurse
+bindsym $mod+n exec st -e newsboat
 
 # Disable mouse focusing
 focus_follows_mouse no
