@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export EDITOR="nvim"
-export TERMINAL="st"
-export BROWSER="firefox"
-export READER="zathura"
+# remap keys on system start
 
+xmodmap ~/.Xmodmap

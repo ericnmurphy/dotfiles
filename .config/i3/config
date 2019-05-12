@@ -1,36 +1,58 @@
-# i3 config file (v4)
-#
-# Please see https://i3wm.org/docs/userguide.html for a complete reference!
-
-set $mod Mod4
-
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-font pango:monospace 8
-
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
-
-# Before i3 v4.8, we used to recommend this one as the default:
-# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, its unicode glyph coverage is limited, the old
-# X core fonts rendering does not support right-to-left and this being a bitmap
-# font, it doesn’t scale on retina/hidpi displays.
+# vim: filetype=i3
 
 # #---Basic Definitions---# #
-
+for_window [class="^.*"] border pixel 2 
+gaps inner 15 
+gaps outer 15
+set $term --no-startup-id $TERMINAL
+set $mod Mod4
 set $shutdown sudo -A shutdown -h now
+set $reboot sudo -A reboot
+set $hibernate sudo -A systemctl suspend
+
+# #---Dropdown Windows---# #
+# General dropdown window traits. The order can matter.
+for_window [instance="dropdown_*"] floating enable
+for_window [instance="dropdown_*"] move scratchpad
+for_window [instance="dropdown_*"] sticky enable
+for_window [instance="dropdown_*"] scratchpad show
+for_window [instance="dropdown_tmuxdd"] resize set 625 450
+for_window [instance="dropdown_dropdowncalc"] resize set 800 300
+for_window [instance="dropdown_tmuxdd"] border pixel 3
+for_window [instance="dropdown_dropdowncalc"] border pixel 2
+for_window [instance="dropdown_*"] move position center
 
 # #---Starting External Scripts---# #
 # Setting the background:
-exec setbg
+exec --no-startup-id setbg
 # Start redshift:
 exec --no-startup-id redshift
+# Starts dunst for notifications:
+exec --no-startup-id dunst
+# Compton for compsiting:
+exec --no-startup-id compton
 
-# start a terminal
-bindsym $mod+Return exec st
+bar {
+  font pango:mono 10
+  status_command i3blocks
+  position top
+  mode dock
+  modifier None
+}
+
+# #---Basic Bindings---# 
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+Return exec --no-startup-id samedir
+
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+bindsym $mod+Escape workspace prev
+bindsym $mod+Shift+Escape exec --no-startup-id prompt "Exit i3?" "i3-msg exit"
+
+# bindsym $mod+BackSpace
+bindsym $mod+Shift+BackSpace exec --no-startup-id prompt "Reboot computer?" "$reboot"
+
 bindsym $mod+r exec st -e ranger
 bindsym $mod+c exec st -e calcurse
 bindsym $mod+n exec st -e newsboat
@@ -72,8 +94,6 @@ bindsym $mod+l focus right
 bindsym $mod+Shift+l move right 30
 
 bindsym $mod+x exec --no-startup-id i3lock -e -f -c 1d2021 ; exec --no-startup-id sleep 1 && xset -display :0.0 dpms force off
-bindsym $mod+Shift+x exec [ "$(printf "No\\nYes" | dmenu -i -p "Shutdown computer?" -nb darkred -sb red -sf white -nf gray )" = "Yes" ] && shutdown -h now 
-bindsym $mod+Shift+BackSpace exec [ "$(printf "No\\nYes" | dmenu -i -p "Reboot computer?" -nb darkred -sb red -sf white -nf gray )" = "Yes" ] && reboot 
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -96,12 +116,6 @@ bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+e layout toggle split
-
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -150,18 +164,6 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-  status_command i3blocks
-}
-
-for_window [class="^.*"] border pixel 2 
-gaps inner 15 
-gaps outer 0
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% && pkill -RTMIN+10 i3blocks
@@ -173,9 +175,8 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
 # Media player controls
-bindsym XF86AudioPlay exec playerctl play
-bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+bindsym $mod+F7 exec spotify_remote play
+bindsym XF86AudioPause exec spotify_remote pause 
+bindsym XF86AudioNext exec spotify_remote next
+bindsym XF86AudioPrev exec spotify_remote previous
 
-exec_always compton

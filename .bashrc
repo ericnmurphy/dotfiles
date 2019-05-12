@@ -5,8 +5,7 @@ alias v="vim"
 alias vs="vscodium"
 alias g="git"
 alias kp="keepassxc-cli clip ~/Documents/Passwords.kdbx"
-
-export PATH="$PATH:~/.scripts/i3cmds"
+alias ng="~/.npm-global/bin/ng"
 
 # Adding color
 alias ls="ls -hN --color=auto --group-directories-first"
