@@ -6,9 +6,6 @@ gaps inner 15
 gaps outer 15
 set $term --no-startup-id $TERMINAL
 set $mod Mod4
-set $shutdown sudo -A shutdown -h now
-set $reboot sudo -A reboot
-set $hibernate sudo -A systemctl suspend
 
 # #---Dropdown Windows---# #
 # General dropdown window traits. The order can matter.
@@ -23,6 +20,8 @@ for_window [instance="dropdown_dropdowncalc"] border pixel 2
 for_window [instance="dropdown_*"] move position center
 
 # #---Starting External Scripts---# #
+# mpd startup
+exec --no-startup-id mpd
 # Setting the background:
 exec --no-startup-id setbg
 # Start redshift:
@@ -50,12 +49,16 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+Escape workspace prev
 bindsym $mod+Shift+Escape exec --no-startup-id prompt "Exit i3?" "i3-msg exit"
 
-# bindsym $mod+BackSpace
-bindsym $mod+Shift+BackSpace exec --no-startup-id prompt "Reboot computer?" "$reboot"
+bindsym $mod+Shift+x exec --no-startup-id prompt "Shutdown computer?" "shutdown -h now"
+bindsym $mod+Shift+BackSpace exec --no-startup-id prompt "Reboot computer?" "reboot"
 
-bindsym $mod+r exec st -e ranger
+bindsym $mod+r exec $term -e $FILE
+
 bindsym $mod+c exec st -e calcurse
 bindsym $mod+n exec st -e newsboat
+
+bindsym $mod+p			exec --no-startup-id mpc toggle
+bindsym $mod+Shift+p exec --no-startup-id mpc pause
 
 # Disable mouse focusing
 focus_follows_mouse no
@@ -120,6 +123,9 @@ bindsym $mod+e layout toggle split
 # focus the parent container
 bindsym $mod+a focus parent
 
+bindsym $mod+m 			exec --no-startup-id $term -e ncmpcpp
+bindsym $mod+Shift+m exec --no-startup-id mpc mute
+
 # focus the child container
 #bindsym $mod+d focus child
 
@@ -174,9 +180,7 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle && pkill
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
-# Media player controls
-bindsym $mod+F7 exec spotify_remote play
-bindsym XF86AudioPause exec spotify_remote pause 
-bindsym XF86AudioNext exec spotify_remote next
-bindsym XF86AudioPrev exec spotify_remote previous
-
+bindsym XF86AudioNext		exec --no-startup-id mpc next
+bindsym XF86AudioPlay		exec --no-startup-id mpc toggle
+bindsym XF86AudioPrev		exec --no-startup-id mpc prev
+bindsym XF86AudioStop exec --no-startup-id mpc toggle
