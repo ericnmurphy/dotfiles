@@ -50,15 +50,22 @@ bindsym $mod+Escape workspace prev
 bindsym $mod+Shift+Escape exec --no-startup-id prompt "Exit i3?" "i3-msg exit"
 
 bindsym $mod+Shift+x exec --no-startup-id prompt "Shutdown computer?" "shutdown -h now"
-bindsym $mod+Shift+BackSpace exec --no-startup-id prompt "Reboot computer?" "reboot"
+bindsym $mod+Shift+BackSpace exec --no-startup-id prompt "Reboot computer?" "shutdown -r 0"
 
 bindsym $mod+r exec $term -e $FILE
 
 bindsym $mod+c exec st -e calcurse
 bindsym $mod+n exec st -e newsboat
 
-bindsym $mod+p			exec --no-startup-id mpc toggle
-bindsym $mod+Shift+p exec --no-startup-id mpc pause
+bindsym $mod+p exec --no-startup-id lmc toggle
+bindsym $mod+Shift+p exec --no-startup-id lmc pause
+
+bindsym $mod+o exec passmenu
+
+bindsym $mod+less 		exec --no-startup-id lmc prev
+bindsym $mod+Shift+less		exec --no-startup-id lmc replay
+bindsym $mod+greater		exec --no-startup-id lmc next
+bindsym $mod+Shift+greater exec --no-startup-id lmc next
 
 # Disable mouse focusing
 focus_follows_mouse no
@@ -180,7 +187,7 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle && pkill
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
-bindsym XF86AudioNext		exec --no-startup-id mpc next
-bindsym XF86AudioPlay		exec --no-startup-id mpc toggle
-bindsym XF86AudioPrev		exec --no-startup-id mpc prev
-bindsym XF86AudioStop exec --no-startup-id mpc toggle
+bindsym XF86AudioNext		exec --no-startup-id lmc next
+bindsym XF86AudioPlay		exec --no-startup-id lmc toggle
+bindsym XF86AudioPrev		exec --no-startup-id lmc prev
+bindsym XF86AudioStop exec --no-startup-id lmc toggle
